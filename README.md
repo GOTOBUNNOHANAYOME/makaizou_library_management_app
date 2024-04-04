@@ -14,6 +14,7 @@ chmod -R 777 storage
 cp .env.example .env
 npm install
 php artisan key:generate
+npm run dev
 php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
