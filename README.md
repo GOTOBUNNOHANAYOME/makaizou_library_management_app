@@ -18,4 +18,5 @@ npm run dev
 php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
-```
+
+#akihara sample```
