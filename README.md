@@ -7,5 +7,5 @@ cd makaizou_library_management_app
 ```
 var/www/html/makaizou_library_management_app下で
 ```
-chmod -R 775 storage/logs
+chmod -R 777 storage/logs
 ```
