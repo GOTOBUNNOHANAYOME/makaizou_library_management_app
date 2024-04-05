@@ -22,3 +22,14 @@ php artisan view:clear
 ```
 apt install nodejs npm
 ```
+/var/www/html/makaizou_library_management_app/内で
+```
+npm install && npm run dev
+```
+別のターミナル開いて/var/www/html/makaizou_library_management_app/内で
+```
+npm install --save-dev ts-loader typescript react-router-dom @types/react @types/react-dom @types/react-router-dom
+```
+```
+npx tsc --init
+```
