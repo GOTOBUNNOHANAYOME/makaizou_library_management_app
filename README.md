@@ -37,6 +37,6 @@ npx tsc --init
 ```
 <hr>
 スプレッドシート
-https://docs.google.com/spreadsheets/d/1sA4U0zTgiKbjZSy7-kswvCKDYP2lLDE53fUA8OdRIOM/edit#gid=1748048429
+https://docs.google.com/spreadsheets/d/1sA4U0zTgiKbjZSy7-kswvCKDYP2lLDE53fUA8OdRIOM/edit#gid=1748048429<br>
 要件定義参考サイト
 https://qiita.com/syantien/items/9a8a7cbaeca2be3ef0d7
