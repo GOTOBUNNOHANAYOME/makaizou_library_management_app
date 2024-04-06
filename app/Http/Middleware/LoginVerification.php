@@ -15,7 +15,7 @@ class LoginVerification
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check()){
+        if(!auth()->check()){
             return to_route("login_credential.create");
         }
 
