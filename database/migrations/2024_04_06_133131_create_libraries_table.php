@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->string('isbn_10')->comment('ISBN10コード');
-            $table->string('isbn_13')->comment('ISBN13コード');
             $table->string('title')->comment('タイトル');
-            $table->string('description')->comment('概要');
-            $table->integer('page')->comment('ページ数');
-            $table->string('thumbnail_path')->comment('Googleが提供してる画像');
-            $table->string('icon_path')->comment('Googleが提供しているアイコン用の画像');
-            $table->string('country')->comment('国');
+            $table->string('isbn_10')->nullable()->comment('ISBN10コード');
+            $table->string('isbn_13')->nullable()->comment('ISBN13コード');
+            $table->string('description')->nullable()->comment('概要');
+            $table->integer('page')->nullable()->comment('ページ数');
+            $table->string('thumbnail_path')->nullable()->comment('Googleが提供してる画像');
+            $table->string('icon_path')->nullable()->comment('Googleが提供しているアイコン用の画像');
+            $table->string('country')->nullable()->comment('国');
             $table->string('publisher')->nullable()->comment('発行会社');
             $table->date('published_at')->nullable()->comment('発行日');
             $table->timestamps();

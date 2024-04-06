@@ -12,9 +12,14 @@
         <input type="submit" value="search">
     </form>
 
-    @if(!in_null($libraries))
+    @if(isset($libraries))
         @foreach ($libraries as $library)
-            <a href="{{ route('library.show', $library) }}">$library->title</a>
+            <a href="{{ route('library.show', $library) }}">{{ $library->title }}</a>
+            @if(in_array($library->id, $library_histories))
+                <a href="{{ route('library_history.book_return', $library) }}">返却</a>
+            @else
+                <a href="{{ route('library_history.store', $library) }}">レンタル</a>
+            @endif
         @endforeach
     @endif
 </body>

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('library_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('library_id')->constrained();
+            $table->date('expired_at')->comment('有効期限');
+            $table->boolean('is_enable')->comment('レンタル中orレンタル終了');
             $table->timestamps();
         });
     }
