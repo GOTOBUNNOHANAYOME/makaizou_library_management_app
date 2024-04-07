@@ -10,7 +10,10 @@ use App\Models\{
     User,
     UserAuthentication,
 };
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\{
+    UserRequest,
+    ResetPasswordRequest
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\{
@@ -32,9 +35,9 @@ class UserController extends Controller
             return to_route('login_credential.create');
         }
 
-        return view('user.create', 
-            ['email' => $user_authentication->email]
-        );
+        return view('user.create', [
+            'email' => $user_authentication->email
+        ]);
     }
 
     public function store(UserRequest $request)
@@ -63,12 +66,55 @@ class UserController extends Controller
             'icon_image_path' => $image_paths['icon_image_path']
         ]);
 
+        $user_authentication->status = AuthenticationStatus::COMPLETED;
+        $user_authentication->save();
+
         return to_route('user.complete');
     }
 
     public function complete(Request $request)
     {
         return view('user.complete');
+    }
+
+    public function createPassword(Request $request)
+    {
+        return view('user_authentication.create',[
+            'type' => AuthenticationType::RESET_PASSWORD
+        ]);
+    }
+
+    public function editPassword(Request $request)
+    {
+        return view('user.edit_password');
+    }
+
+    public function updatePassword(ResetPasswordRequest $request)
+    {
+        $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
+            ->where('expired_at','>', now())
+            ->where('status', AuthenticationStatus::TEMPORARY)
+            ->where('type', AuthenticationType::CREATE_USER)
+            ->first();
+
+        if(is_null($request->authentication_token)){
+            return to_route('login_credential.create');
+        }
+
+        $user_authentication->status = AuthenticationStatus::COMPLETED;
+        $user_authentication->save();
+
+        User::where('email', $request->email)
+            ->update([
+                'password'=> Hash::make($request->password),
+            ]);
+
+        return to_route('user.complete_password_reset');
+    }
+
+    public function completePasswordReset(Request $request)
+    {
+        return view('user.complete_password_reset');
     }
 
     private function imageResize($image_file)

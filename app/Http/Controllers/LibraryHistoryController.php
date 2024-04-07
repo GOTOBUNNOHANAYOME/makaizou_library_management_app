@@ -14,9 +14,9 @@ class LibraryHistoryController extends Controller
     {
         $library_history = LibraryHistory::where('user_id', auth()->id())->get();
         
-        return view("library_history.index", 
-            ['library_history' => $library_history]
-        );
+        return view("library_history.index", [
+            'library_history' => $library_history
+        ]);
     }
 
     public function store(Request $request, Library $library){

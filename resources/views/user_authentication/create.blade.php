@@ -9,6 +9,7 @@
 <body>
     <form action="{{ route('user_authentication.store') }}" method="POST">
         @csrf
+        <input type="hidden" value="{{ $type }}">
         Email
         <input type="text" name="email" value="{{ old('email') }}">
         Email確認用
