@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('authentication_token');
             $table->string('expired_at')->comment('有効時間');
-            $table->string('status');
-            $table->string('type');
+            $table->integer('status');
+            $table->integer('type');
             $table->timestamps();
         });
     }

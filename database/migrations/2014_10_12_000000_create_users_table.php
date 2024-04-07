@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('prefecture');
+            $table->integer('prefecture');
             $table->integer('gender');
             $table->string('phone_number');
             $table->date('birthday');

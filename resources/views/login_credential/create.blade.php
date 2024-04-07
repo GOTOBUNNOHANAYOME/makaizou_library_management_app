@@ -9,8 +9,8 @@
 <body>
     <form action="{{ route('login_credential.store') }}" method="POST">
     @csrf
-        <input type="text" name="email" value="{{ old('email') }}">
-        <input type="text" name="password" value="{{ old('password') }}">
+        メールアドレス<input type="text" name="email" value="{{ old('email') }}">
+        パスワード<input type="text" name="password" value="{{ old('password') }}">
         <input type="submit" value="login">
     </form>
     @if(!$errors->isEmpty())
@@ -20,5 +20,7 @@
     @endif
 
     <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::CREATE_USER) }}">新規登録</a>
+    <br>
+    <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::RESET_PASSWORD) }}">パスワードをリセット</a>
 </body>
 </html>
