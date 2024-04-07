@@ -18,5 +18,7 @@
             {{ $error }}
         @endforeach
     @endif
+
+    <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::CREATE_USER) }}">新規登録</a>
 </body>
 </html>
