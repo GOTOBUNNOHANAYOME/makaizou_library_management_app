@@ -7,12 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('user.update_password') }}">
-        <input type="hidden" value="{{ request()->authentication_token }}">
+    <form action="{{ route('user.update_password') }}" method="POST">
+        @csrf
+        <input type="hidden" name="authentication_token" value="{{ $authentication_token }}">
         新しいパスワード<br>
-        <input type="password" name="password">
+        <input type="password" name="password"><br>
         新しいパスワード(確認用)<br>
-        <input type="password" name="password_confirmation">
+        <input type="password" name="password_confirmation"><br>
+        <input type="submit" value="変更">
     </form>
 </body>
 </html>

@@ -21,6 +21,6 @@
 
     <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::CREATE_USER) }}">新規登録</a>
     <br>
-    <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::CREATE_USER) }}">パスワードをリセット</a>
+    <a href="{{ route('user_authentication.create', \App\Enums\AuthenticationType::RESET_PASSWORD) }}">パスワードをリセット</a>
 </body>
 </html>

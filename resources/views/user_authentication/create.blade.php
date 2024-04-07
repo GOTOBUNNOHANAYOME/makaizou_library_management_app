@@ -9,12 +9,17 @@
 <body>
     <form action="{{ route('user_authentication.store') }}" method="POST">
         @csrf
-        <input type="hidden" value="{{ $type }}">
+        <input type="hidden" name="authentication_type" value="{{ $type }}">
         Email
         <input type="text" name="email" value="{{ old('email') }}">
         Email確認用
         <input type="text" name="email_confirmation" value="{{ old('email_confirmation') }}">
         <input type="submit" value="送信">
     </form>
+    @if(!$errors->isEmpty())
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    @endif
 </body>
 </html>

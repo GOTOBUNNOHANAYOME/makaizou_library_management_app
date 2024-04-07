@@ -86,7 +86,9 @@ class UserController extends Controller
 
     public function editPassword(Request $request)
     {
-        return view('user.edit_password');
+        return view('user.edit_password', [
+            'authentication_token' => $request->authentication_token
+        ]);
     }
 
     public function updatePassword(ResetPasswordRequest $request)
@@ -94,7 +96,7 @@ class UserController extends Controller
         $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
             ->where('expired_at','>', now())
             ->where('status', AuthenticationStatus::TEMPORARY)
-            ->where('type', AuthenticationType::CREATE_USER)
+            ->where('type', AuthenticationType::RESET_PASSWORD)
             ->first();
 
         if(is_null($request->authentication_token)){
@@ -109,12 +111,12 @@ class UserController extends Controller
                 'password'=> Hash::make($request->password),
             ]);
 
-        return to_route('user.complete_password_reset');
+        return to_route('user.complete_reset_password');
     }
 
     public function completePasswordReset(Request $request)
     {
-        return view('user.complete_password_reset');
+        return view('user.complete_reset_password');
     }
 
     private function imageResize($image_file)

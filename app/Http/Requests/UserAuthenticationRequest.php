@@ -19,18 +19,13 @@ class UserAuthenticationRequest extends FormRequest
             'email'=> [
                 'required',
                 'email:filter',
-                'unique:users,email',
                 'max:255',
                 'string',
                 'confirmed'
             ],
         ];
 
-        $rule = match($this->type) {
-            AuthenticationType::CREATE_USER => 'unique:users,email',
-            AuthenticationType::RESET_PASSWORD => 'exists:users.email',
-        };
-
+        $rule = (int)$this->authentication_type === AuthenticationType::CREATE_USER ? 'unique:users,email' : 'exists:users,email';
         array_push($rules['email'], $rule);
 
         return $rules;

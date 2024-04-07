@@ -20,7 +20,7 @@ class UserAuthenticationController extends Controller
 {
     public function create(Request $request)
     {
-        $type = $request->type;
+        $type = $request->authentication_type;
         return view('user_authentication.create', [
             'type' => $type
         ]);
@@ -35,12 +35,12 @@ class UserAuthenticationController extends Controller
         UserAuthentication::create([
             'email' => $request->email,
             'authentication_token' => $authentication_token,
-            'type' => $request->type === AuthenticationType::CREATE_USER ? AuthenticationType::CREATE_USER : AuthenticationType::RESET_PASSWORD,
+            'type' => (int)$request->authentication_type === AuthenticationType::CREATE_USER ? AuthenticationType::CREATE_USER : AuthenticationType::RESET_PASSWORD,
             'status' => AuthenticationStatus::TEMPORARY,
             'expired_at' => now()->addMinutes(15)
         ]);
 
-        if($request->type === AuthenticationType::CREATE_USER){
+        if((int)$request->authentication_type === AuthenticationType::CREATE_USER){
             Mail::to($request->email)->send(new CreateUserMail($authentication_token));
         }else{
             Mail::to($request->email)->send(new ResetPasswordMail($authentication_token));
