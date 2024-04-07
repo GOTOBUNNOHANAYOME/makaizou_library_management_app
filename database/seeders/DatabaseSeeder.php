@@ -18,5 +18,17 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => Hash::make('test'),
         ]);
+        \App\Models\Library::create([
+            'title' => 'test',
+            'isbn_10' => 'test',
+            'isbn_13'=> 'test',
+            'description'=> 'test',
+            'page'=> 300,
+            'thumbnail_path'=> 'test',
+            'icon_path' => 'test',
+            'country' => '日本',
+            'publisher' => 'test',
+            'published_at' => now(),
+        ]);
     }
 }
