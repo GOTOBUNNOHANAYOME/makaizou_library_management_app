@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     LibraryController,
     LibraryHistoryController,
-    LoginCredentialController
+    LoginCredentialController,
+    UserController,
+    UserAuthenticationController,
 };
 
 Route::get('/', function () {
@@ -14,6 +16,17 @@ Route::get('/', function () {
 Route::prefix('/login')->group(function () {
     Route::get('/', [LoginCredentialController::class, 'create'])->name('login_credential.create');
     Route::post('/', [LoginCredentialController::class, 'store'])->name('login_credential.store');
+});
+
+Route::prefix('/authentication')->group(function () {
+    Route::get('/', [UserAuthenticationController::class, 'create'])->name('user_authentication.create');
+    Route::post('/store', [UserAuthenticationController::class, 'store'])->name('user_authentication.store');
+});
+
+Route::prefix('/user')->group(function () {
+    Route::get('/create/{authentication_token}', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/complete', [UserController::class, 'complete'])->name('user.complete');
 });
 
 Route::middleware(['auth.user'])->group(function () {
