@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AuthenticationStatus;
-use App\Enums\AuthenticationType;
+use App\Enums\{
+    AuthenticationStatus,
+    AuthenticationType
+};
 use App\Models\{
     User,
     UserAuthentication,
