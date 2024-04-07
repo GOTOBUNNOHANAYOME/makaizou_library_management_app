@@ -33,7 +33,7 @@ class LoginCredentialController extends Controller
             'agent' => $request->header('User-Agent'),
             'ip' => $request->ip(), // cloudfrontを経由している場合は取得できない
         ]);
-        // return to_route('') 図書館内の書籍一覧へ
+        return to_route('library.index');
     }
 
     public function logout(Request $request)
