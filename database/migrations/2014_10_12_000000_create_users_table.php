@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('prefecture');
+            $table->integer('gender');
+            $table->string('phone_number');
+            $table->date('birthday');
+            $table->string('archive_image_path');
+            $table->string('icon_image_path');
             $table->timestamps();
         });
     }
