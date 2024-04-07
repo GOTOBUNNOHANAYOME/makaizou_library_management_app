@@ -40,3 +40,4 @@ npx tsc --init
 https://docs.google.com/spreadsheets/d/1sA4U0zTgiKbjZSy7-kswvCKDYP2lLDE53fUA8OdRIOM/edit#gid=1748048429<br>
 要件定義参考サイト
 https://qiita.com/syantien/items/9a8a7cbaeca2be3ef0d7
+Miro https://miro.com/welcomeonboard/Z1piNzhSV0RhaEJLd3lHZFkwOUNKdHdHQzZDTHV6TGNUMHJaQjZsZG92cDlPTnN2MlU3RHJ2Q2NCWFJFbkx1U3wzNDU4NzY0NTU4MzQ2NzYxNDY2fDI=?share_link_id=110148994627
