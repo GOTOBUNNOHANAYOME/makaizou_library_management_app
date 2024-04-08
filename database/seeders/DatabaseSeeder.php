@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'test',
             'email' => 'test@example.com',
             'password' => Hash::make('test'),
-            'prefecture' => 0,
+            'prefecture' => 1,
             'gender' => 0,
             'phone_number' => 00000000000,
             'birthday' => now()->subYear(),
             'archive_image_path' => '',
-            'icon_image_path' => ''
+            'icon_image_path' => '',
+            'is_enable' => true
         ]);
         \App\Models\Library::create([
             'title' => 'test',

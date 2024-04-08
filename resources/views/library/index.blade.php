@@ -13,6 +13,7 @@
     </form>
     <br>
     <a href="{{ route('library_history.index') }}">レンタル履歴一覧</a>
+    <a href="{{ route('user.index') }}">マイページ行きたいやで</a>
 
     @if(isset($libraries))
         @foreach ($libraries as $library)

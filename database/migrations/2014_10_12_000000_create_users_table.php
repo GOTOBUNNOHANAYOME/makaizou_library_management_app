@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('birthday');
             $table->string('archive_image_path');
             $table->string('icon_image_path');
+            $table->boolean('is_enable');
             $table->timestamps();
         });
     }
