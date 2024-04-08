@@ -12,7 +12,8 @@ use App\Models\{
 };
 use App\Http\Requests\{
     UserRequest,
-    ResetPasswordRequest
+    UserUpdateRequest,
+    ResetPasswordRequest,
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,6 +25,12 @@ use Imagick;
 
 class UserController extends Controller
 {
+    public function index(Request $request)
+    {
+        return view('user.index', [
+            'user'=> auth()->user(),
+        ]);
+    }
     public function create(Request $request)
     {
         $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
@@ -64,13 +71,77 @@ class UserController extends Controller
             'phone_number'       => $request->phone_number,
             'birthday'           => $request->birthday,
             'archive_image_path' => $image_paths['archive_image_path'],
-            'icon_image_path'    => $image_paths['icon_image_path']
+            'icon_image_path'    => $image_paths['icon_image_path'],
+            'is_enable'          => true
         ]);
 
         $user_authentication->status = AuthenticationStatus::COMPLETED;
         $user_authentication->save();
 
         return to_route('user.complete');
+    }
+
+    public function show(Request $request)
+    {
+        return view('user.show', [
+            'user' => auth()->user()
+        ]);
+    }
+
+    public function edit(Request $request)
+    {
+        return view('user.edit', [
+            'user' => auth()->user()
+        ]);
+    }
+
+    public function update(UserUpdateRequest $request)
+    {
+        $user = User::where('id', auth()->user())
+            ->update([
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'birthday'=> $request->birthday,
+                'prefecture'=> $request->prefecture,
+            ]);
+        
+        if(!is_null($request->image)){
+            $image_paths = $this->imageResize($request->image);
+            $user->archive_image_path = $image_paths['archive_image_path'];
+            $user->icon_image_path    = $image_paths['icon_image_path'];
+            $user->save();
+        }
+
+        return to_route('user.config');
+    }
+
+    public function delete(Request $request)
+    {
+        return view('user.delete');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'can_delete' => [
+                'required',
+                'max:255',
+                'string'
+            ],
+        ], [
+            'can_delete.required' => 'どっちか選ばんかい',
+            'can_delete.max'      => 'DB潰そうとしとるんけ？',
+            'can_delete.string'   => '人生は冒険か？'
+        ]);
+
+        if($request->can_delete === 'no'){
+            return to_route('user.show');
+        }
+        $user = auth()->user();
+        $user->is_enable = false;
+        $user->save();
+
+        return to_route('login_credential.create');
     }
 
     public function complete(Request $request)
