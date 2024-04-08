@@ -19,12 +19,19 @@ class LibraryReviewRequest extends FormRequest
                 'max:255',
                 'string'
             ],
-            'score'=> [
+            'score' => [
                 'required',
                 'min:0',
                 'max:5',
                 'numeric'
             ]
+        ];
+    }
+    public function attributes(): array
+    {
+        return [
+            'comment' => 'コメント',
+            'score'   => '点数',
         ];
     }
 }

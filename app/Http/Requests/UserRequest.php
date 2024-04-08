@@ -24,14 +24,14 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'=> [
+            'image' => [
                 'required',
                 'file',
                 'image',
                 'mimes:jpg,gif,png,webp',
                 'max:2048'
             ],
-            'name'=> [
+            'name' => [
                 'required',
                 'max:40',
                 'string'
@@ -69,13 +69,13 @@ class UserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => '氏名',
-            'gender' => '性別',
-            'birthday' => '誕生日',
+            'name'         => '氏名',
+            'gender'       => '性別',
+            'birthday'     => '誕生日',
             'phone_number' => '電話番号',
-            'prefecture' => '都道府県',
-            'password' => 'パスワード',
-            'image' => '画像ファイル'
+            'prefecture'   => '都道府県',
+            'password'     => 'パスワード',
+            'image'        => '画像ファイル'
         ];
     }
 }
