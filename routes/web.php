@@ -44,7 +44,7 @@ Route::middleware(['auth.user'])->group(function () {
     });
 
     Route::prefix('/library/history')->group(function () {
-        Route::get('/index', [LibraryController::class, 'index'])->name('library_history.index');
+        Route::get('/index', [LibraryHistoryController::class, 'index'])->name('library_history.index');
         Route::get('/store/{library}', [LibraryHistoryController::class, 'store'])->name('library_history.store');
         Route::get('/book_return/{library}', [LibraryHistoryController::class, 'bookReturn'])->name('library_history.book_return');
         Route::get('/complete/{library_history}', [LibraryHistoryController::class,'complete'])->name('library_history.complete');

@@ -12,10 +12,12 @@ class LibraryHistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $library_history = LibraryHistory::where('user_id', auth()->id())->get();
+        $library_histories = LibraryHistory::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        $libraries = Library::all();
         
         return view("library_history.index", [
-            'library_history' => $library_history
+            'library_histories' => $library_histories,
+            'libraries'=> $libraries
         ]);
     }
 
