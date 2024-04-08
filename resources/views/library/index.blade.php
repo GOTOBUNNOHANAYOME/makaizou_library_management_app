@@ -11,6 +11,8 @@
         <input type="text" name="search_word">
         <input type="submit" value="search">
     </form>
+    <br>
+    <a href="{{ route('library_history.index') }}">レンタル履歴一覧</a>
 
     @if(isset($libraries))
         @foreach ($libraries as $library)
