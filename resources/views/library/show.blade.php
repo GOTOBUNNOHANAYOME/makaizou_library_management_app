@@ -8,6 +8,13 @@
 </head>
 <body>
     本:{{ $library->title }}<br>
+
+    @if(isset($library_reviews))
+        @foreach($library_reviews as $library_review)
+            {{ \App\Models\User::where('id', $library_review->user_id)->value('name') }}さんのコメントでやんごで！:
+            {{ $library_review->comment }}<br>
+        @endforeach
+    @endif
     <a href="{{ route('library.index') }}">一覧に戻る</a>
 </body>
 </html>
