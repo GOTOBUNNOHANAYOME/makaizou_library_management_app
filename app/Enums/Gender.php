@@ -13,10 +13,10 @@ final class Gender extends Enum
     public static function getDescription(mixed $value): string
     {
         return match ($value) {
-            self::MALE => '男性',
+            self::MALE   => '男性',
             self::FEMALE => '女性',
-            self::OTHER => 'その他',
-            default => '不明'
+            self::OTHER  => 'その他',
+            default      => '不明'
         };
     }
 }

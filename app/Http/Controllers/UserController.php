@@ -28,7 +28,8 @@ class UserController extends Controller
     {
         $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
             ->where('expired_at', '>', now())
-            ->where('status', AuthenticationType::CREATE_USER)
+            ->where('status', AuthenticationStatus::TEMPORARY)
+            ->where('type', AuthenticationType::CREATE_USER)
             ->first();
 
         if (is_null($user_authentication)) {
@@ -43,7 +44,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
-            ->where('expired_at','>', now())
+            ->where('expired_at', '>', now())
             ->where('status', AuthenticationStatus::TEMPORARY)
             ->where('type', AuthenticationType::CREATE_USER)
             ->first();
@@ -55,15 +56,15 @@ class UserController extends Controller
         $image_paths = $this->imageResize($request->image);
 
         User::create([
-            'name' => $request->name,
-            'email'=> $user_authentication->email,
-            'password' => Hash::make($request->password),
-            'prefecture'=> $request->prefecture,
-            'gender' => $request->gender,
-            'phone_number' => $request->phone_number,
-            'birthday' => $request->birthday,
+            'name'               => $request->name,
+            'email'              => $user_authentication->email,
+            'password'           => Hash::make($request->password),
+            'prefecture'         => $request->prefecture,
+            'gender'             => $request->gender,
+            'phone_number'       => $request->phone_number,
+            'birthday'           => $request->birthday,
             'archive_image_path' => $image_paths['archive_image_path'],
-            'icon_image_path' => $image_paths['icon_image_path']
+            'icon_image_path'    => $image_paths['icon_image_path']
         ]);
 
         $user_authentication->status = AuthenticationStatus::COMPLETED;
@@ -94,7 +95,7 @@ class UserController extends Controller
     public function updatePassword(ResetPasswordRequest $request)
     {
         $user_authentication = UserAuthentication::where('authentication_token', $request->authentication_token)
-            ->where('expired_at','>', now())
+            ->where('expired_at', '>', now())
             ->where('status', AuthenticationStatus::TEMPORARY)
             ->where('type', AuthenticationType::RESET_PASSWORD)
             ->first();

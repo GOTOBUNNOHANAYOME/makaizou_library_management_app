@@ -14,10 +14,10 @@ class LibraryHistoryController extends Controller
     {
         $library_histories = LibraryHistory::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         $libraries = Library::all();
-        
+
         return view("library_history.index", [
             'library_histories' => $library_histories,
-            'libraries'=> $libraries
+            'libraries'         => $libraries
         ]);
     }
 
@@ -46,8 +46,8 @@ class LibraryHistoryController extends Controller
 
     public function complete(Request $request, LibraryHistory $library_history)
     {
-        return view($library_history->is_enable ? 'library_history.complete_rental' : 'library_history.complete_return',[
-            'library'=> $library_history->library,
+        return view($library_history->is_enable ? 'library_history.complete_rental' : 'library_history.complete_return', [
+            'library'         => $library_history->library,
             'library_history' => $library_history
         ]);
     }

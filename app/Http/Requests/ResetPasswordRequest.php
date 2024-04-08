@@ -14,7 +14,7 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password'=> [
+            'password' => [
                 'required',
                 'between:8,255',
                 'regex:/^[!-~]+$/',
@@ -27,7 +27,7 @@ class ResetPasswordRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'password'=> 'パスワード'
+            'password' => 'パスワード'
         ];
     }
 }

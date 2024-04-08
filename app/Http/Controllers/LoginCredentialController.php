@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\LoginCredential;
+use App\Models\{
+    LoginCredential,
+    User
+};
 use App\Http\Requests\LoginCredentialRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -26,10 +28,10 @@ class LoginCredentialController extends Controller
         }
 
         LoginCredential::create([
-            'user_id' => auth()->id(),
+            'user_id'     => auth()->id(),
             'login_token' => $login_token,
-            'agent' => $request->header('User-Agent'),
-            'ip' => $request->ip(), // cloudfrontを経由している場合は取得できない
+            'agent'       => $request->header('User-Agent'),
+            'ip'          => $request->ip(), // cloudfrontを経由している場合は取得できない
         ]);
         return to_route('library.index');
     }

@@ -33,7 +33,7 @@ class UserAuthenticationRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'email'=> 'メールアドレス',
+            'email' => 'メールアドレス',
         ];
     }
 }
