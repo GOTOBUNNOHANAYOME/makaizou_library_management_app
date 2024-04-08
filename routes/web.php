@@ -36,6 +36,15 @@ Route::prefix('/user')->group(function () {
 
 Route::middleware(['auth.user'])->group(function () {
 
+    Route::prefix('/user')->group(function () {
+        Route::get('/index', [UserController::class, 'index'])->name('user.index');
+        Route::get('/show', [UserController::class, 'show'])->name('user.show');
+        Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/update', [UserController::class, 'update'])->name('user.update');
+        Route::get('/delete', [UserController::class, 'delete'])->name('user.delete');
+        Route::delete('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+    });
+
     Route::get('/logout', [LoginCredentialController::class, 'logout'])->name('login_credential.logout');     
 
     Route::prefix('/library')->group(function () {
