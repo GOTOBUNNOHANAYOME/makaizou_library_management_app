@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordRequest extends FormRequest
+class LibraryReviewRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,20 +14,24 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => [
+            'comment' => [
                 'required',
-                'between:8,255',
-                'regex:/^[!-~]+$/',
-                'string',
-                'confirmed'
+                'max:255',
+                'string'
             ],
+            'score' => [
+                'required',
+                'min:0',
+                'max:5',
+                'numeric'
+            ]
         ];
     }
-
     public function attributes(): array
     {
         return [
-            'password' => 'パスワード'
+            'comment' => 'コメント',
+            'score'   => '点数',
         ];
     }
 }

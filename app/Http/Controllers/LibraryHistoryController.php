@@ -12,22 +12,24 @@ class LibraryHistoryController extends Controller
 {
     public function index(Request $request)
     {
-        $library_history = LibraryHistory::where('user_id', auth()->id())->get();
-        
+        $library_histories = LibraryHistory::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        $libraries = Library::all();
+
         return view("library_history.index", [
-            'library_history' => $library_history
+            'library_histories' => $library_histories,
+            'libraries'         => $libraries
         ]);
     }
 
     public function store(Request $request, Library $library){
-        LibraryHistory::create([
+        $library_history = LibraryHistory::create([
             'user_id'    => auth()->id(),
             'library_id' => $library->id,
             'expired_at' => now()->addDays(7),
             'is_enable'  => true,
         ]);
 
-        return to_route('library_history.complete', $library);
+        return to_route('library_history.complete', $library_history);
     }
 
     public function bookReturn(Request $request, Library $library){
@@ -39,13 +41,14 @@ class LibraryHistoryController extends Controller
         $library_history->is_enable = false;
         $library_history->save();
 
-        return to_route('library_history.complete', $library_history->library_id);
+        return to_route('library_history.complete', $library_history);
     }
 
     public function complete(Request $request, LibraryHistory $library_history)
     {
-        return view($library_history->is_enable ? 'library_history.complete_rental' : 'library_history.complete_return',[
-            'library'=> $library_history->library
+        return view($library_history->is_enable ? 'library_history.complete_rental' : 'library_history.complete_return', [
+            'library'         => $library_history->library,
+            'library_history' => $library_history
         ]);
     }
 }

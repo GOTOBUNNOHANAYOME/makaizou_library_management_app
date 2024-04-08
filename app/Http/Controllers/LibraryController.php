@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\{
     Library,
-    LibraryHistory
+    LibraryHistory,
+    LibraryReview
 };
 use Illuminate\Http\Request;
 
@@ -29,15 +30,18 @@ class LibraryController extends Controller
             ->toArray();
 
         return view('library.index',[
-                'libraries' => $libraries,
+                'libraries'        => $libraries,
                 'library_histories'=> $library_histories
         ]);
     }
 
     public function show(Request $request, Library $library)
     {
-        return view('library.show',
-            ['library' => $library]
-        );
+        $library_reviews = LibraryReview::where('library_id', $library->id)->get();
+        
+        return view('library.show',[
+            'library'         => $library,
+            'library_reviews' => $library_reviews
+        ]);
     }
 }
