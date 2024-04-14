@@ -37,5 +37,9 @@ class DatabaseSeeder extends Seeder
             'publisher' => 'test',
             'published_at' => now(),
         ]);
+        \App\Models\Admin::create([
+            'login_id' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
     }
 }
