@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th class="col-sm-1">No</th>
-                    <th class="col-sm-6">タイトル</th>
+                    <th class="col-sm-4">タイトル</th>
                     <th class="col-sm-3">著者</th>
                     <th class="col-sm-2">&nbsp;</th>
                 </tr>
@@ -53,6 +53,9 @@
                 $.ajax({
                     url: url,
                     type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
                     dataType: 'json',
                     success: function(response) {
                         tbody = $('#tbody');
@@ -97,12 +100,10 @@
                 data: requestData, // 送信するデータ
                 dataType: 'json',
             success: function(response) {
-                console.log('Ajaxリクエストが成功しました。レスポンス:', response);
-                // 成功時の処理を記述
+
             },
             error: function(xhr, status, error) {
-                console.error('Ajaxリクエストがエラーを返しました。エラー:', error);
-                // エラー時の処理を記述
+
             }
             })
         }); 
