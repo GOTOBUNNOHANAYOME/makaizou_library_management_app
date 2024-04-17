@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th class="col-sm-1">No</th>
-                    <th class="col-sm-4">タイトル</th>
+                    <th class="col-sm-6">タイトル</th>
                     <th class="col-sm-3">著者</th>
                     <th class="col-sm-2">&nbsp;</th>
                 </tr>
@@ -98,6 +98,9 @@
                 url: @json($redirect_url),
                 type: 'POST',
                 data: requestData, // 送信するデータ
+                header: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 dataType: 'json',
             success: function(response) {
 
