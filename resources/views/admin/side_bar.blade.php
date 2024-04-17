@@ -1,19 +1,10 @@
-
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <!-- Brand Logo -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed; top: 0; bottom: 0;">
   <a href="index3.html" class="brand-link">
     <span class="brand-text font-weight-light pl-4">管理画面</span>
   </a>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <!-- Sidebar Menu -->
+  <div class="sidebar position-relative px-auto" style="overflow-y: auto;">
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
         <li class="nav-item {{ Request::routeIs('admin.report.access') || Request::routeIs('admin.report.user') ? 'menu-open' : ''}}">
           <div class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -39,16 +30,13 @@
         </li>
         <li class="nav-item">
           <div class="nav-link">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              追加予定
-              <span class="right badge badge-danger">New</span>
-            </p>
+            <a href="{{ route('admin.library.index') }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>書籍登録</p>
+            </a>
           </div>
         </li>
       </ul>
     </nav>
-    <!-- /.sidebar-menu -->
   </div>
-  <!-- /.sidebar -->
 </aside>

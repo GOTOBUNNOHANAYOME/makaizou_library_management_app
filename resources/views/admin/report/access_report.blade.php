@@ -1,20 +1,22 @@
 @extends('admin.layout.app')
 
 @section('content')
-<div class="container">
-    <div class="small-box bg-gradient-success">
-        <div class="inner">
-        <h3>{{ $today_access }}</h3>
-        <p>本日のログインユーザー数</p>
-        </div>
-        <div class="icon">
-        <i class="fas fa-user-plus"></i>
+<div class="row">
+    <div class="container">
+        <div class="small-box bg-gradient-success">
+            <div class="inner">
+            <h3>{{ $today_access }}</h3>
+            <p>本日のログインユーザー数</p>
+            </div>
+            <div class="icon">
+            <i class="fas fa-user-plus"></i>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container">
-    <canvas id="chart"></canvas>
+    <div class="container">
+        <canvas id="chart"></canvas>
+    </div>    
 </div>
 @endsection
 
