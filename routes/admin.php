@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     LoginCredentialController,
-    ReportController
+    ReportController,
+    LibraryController,
 };
 use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
@@ -14,4 +15,9 @@ Route::post('/store', [LoginCredentialController::class, 'store'])->name('admin.
 Route::middleware(['auth.user'])->group(function () {
     Route::get('/report/access', [ReportController::class, 'accessReport'])->name('admin.report.access');
     Route::get('/report/user', [ReportController::class, 'userReport'])->name('admin.report.user');
+
+    Route::prefix('/library')->group(function () {
+        Route::get('/index', [LibraryController::class, 'index'])->name('admin.library.index');
+        Route::post('/store', [LibraryController::class, 'store'])->name('admin.library.store');
+    });
 });
