@@ -25,18 +25,18 @@ class DatabaseSeeder extends Seeder
             'icon_image_path' => '',
             'is_enable' => true
         ]);
-        \App\Models\Library::create([
-            'title' => 'test',
-            'isbn_10' => 'test',
-            'isbn_13'=> 'test',
-            'description'=> 'test',
-            'page'=> 300,
-            'thumbnail_path'=> 'test',
-            'icon_path' => 'test',
-            'country' => '日本',
-            'publisher' => 'test',
-            'published_at' => now(),
-        ]);
+        // \App\Models\Library::create([
+        //     'title' => 'test',
+        //     'isbn_10' => 'test',
+        //     'isbn_13'=> 'test',
+        //     'description'=> 'test',
+        //     'page'=> 300,
+        //     'thumbnail_path'=> 'test',
+        //     'icon_path' => 'test',
+        //     'country' => '日本',
+        //     'publisher' => 'test',
+        //     'published_at' => now(),
+        // ]);
         \App\Models\Admin::create([
             'login_id' => 'admin',
             'password' => Hash::make('admin'),

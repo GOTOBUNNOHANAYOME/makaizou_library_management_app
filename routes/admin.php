@@ -18,6 +18,9 @@ Route::middleware(['auth.user'])->group(function () {
 
     Route::prefix('/library')->group(function () {
         Route::get('/index', [LibraryController::class, 'index'])->name('admin.library.index');
-        Route::post('/store', [LibraryController::class, 'store'])->name('admin.library.store');
     });
+});
+Route::prefix('/library')->group(function () {
+    Route::post('/calc-count', [LibraryController::class,'calcCount'])->name('admin.library.calc_count');
+    Route::post('/store', [LibraryController::class, 'store'])->name('admin.library.store');
 });
