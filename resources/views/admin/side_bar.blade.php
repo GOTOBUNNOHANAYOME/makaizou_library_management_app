@@ -29,12 +29,10 @@
           </ul>
         </li>
         <li class="nav-item">
-          <div class="nav-link">
-            <a href="{{ route('admin.library.index') }}">
-              <i class="nav-icon fas fa-th"></i>
-              <p>書籍登録</p>
-            </a>
-          </div>
+          <a href="{{ route('admin.library.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>書籍登録</p>
+          </a>
         </li>
       </ul>
     </nav>

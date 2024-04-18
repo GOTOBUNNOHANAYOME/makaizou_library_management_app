@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class LibraryAuthor extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'library_id',
+        'name'
+    ];
 }

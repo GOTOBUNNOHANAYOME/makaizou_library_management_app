@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->string('title')->comment('タイトル');
+            $table->string('api_id')->comment('GoogleAPIのID値');
             $table->string('isbn_10')->nullable()->comment('ISBN10コード');
             $table->string('isbn_13')->nullable()->comment('ISBN13コード');
             $table->string('description')->nullable()->comment('概要');

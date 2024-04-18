@@ -26,8 +26,9 @@
                 <thead>
                 <tr>
                     <th class="col-sm-1">No</th>
-                    <th class="col-sm-6">タイトル</th>
+                    <th class="col-sm-4">タイトル</th>
                     <th class="col-sm-3">著者</th>
+                    <th class="col-sm-2">所持数</th>
                     <th class="col-sm-2">&nbsp;</th>
                 </tr>
                 </thead>
@@ -45,6 +46,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     googleApi = @json($google_api);
+    let library_counts = [];
 
     $(document).ready(function() {
             $('#search_button').on('click', function() {
@@ -58,6 +60,18 @@
                     },
                     dataType: 'json',
                     success: function(response) {
+                        $.ajax({
+                            url: @json($search_count_url),
+                            type: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            dataType: 'json',
+                            data:  response.items,
+                            success: function(data) {
+                                library_counts = $.merge(library_counts, data);
+                            }
+                        })
                         tbody = $('#tbody');
                         tbody.empty();
                         response.items.forEach(function(book, index) {
@@ -68,7 +82,12 @@
                             row.append('<td>' + (index + 1) + '</td>');
                             row.append('<td>' + title + '</td>');
                             row.append('<td>' + authors + '</td>');
-                            row.append('<td><button class="btn btn-primary library_add_button" name="' + book.id + '">追加</button></td>');
+                            if(Number(library_counts[book.id]) > 0){
+                                row.append('<td>' + library_counts[book.id] + '</td>');
+                            }else{
+                                row.append('<td>' + 0 + '</td>');
+                            }
+                            row.append('<td><button class="btn btn-primary library_add_button" data-book-id="' + book.id + '" name="' + book.id + '">追加</button></td>');
 
                             tbody.append(row);
                         });
@@ -88,20 +107,20 @@
         }); 
     });
     $(document).ready(function() {
-        $('.add_library_button').on('click', function() {
-            
+        $(document).on('click', '.library_add_button', function(){
+            console.log('a');
             requestData = {
-                book_id : $(this).attr('name')
+                book_id : $(this).data('book-id')
             }
 
             $.ajax({
                 url: @json($redirect_url),
                 type: 'POST',
                 data: requestData, // 送信するデータ
-                header: {
+                dataType: 'json',
+                headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                dataType: 'json',
             success: function(response) {
 
             },
