@@ -7,6 +7,7 @@ use App\Models\{
     Library
 };
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -42,7 +43,7 @@ class LibraryController extends Controller
             'icon_path'      => $book_data['volumeInfo']['imageLinks']['smallThumbnail'] ?? null,
             'country'        => $book_data['volumeInfo']['country'] ?? null,
             'publisher'      => $book_data['volumeInfo']['publisher'] ?? null,
-            'published_at'   => $book_data['volumeInfo']['publishedDate'] ?? null,
+            'published_at'   => Carbon::parse($book_data['volumeInfo']['publishedDate'] ?? null),
         ]);
         foreach($book_data['volumeInfo']['authors'] as $author){
             LibraryAuthor::create([
@@ -50,16 +51,19 @@ class LibraryController extends Controller
                 'name'       => $author,
             ]);
         }
+        return response()->json([
+            Library::where('api_id', $book_data['id'])->count()
+        ]);
     }
 
     public function calcCount(Request $request)
     {
-        if(is_null($request->items ?? null)){
+        if(is_null($request->book_ids ?? null)){
             return response()->json(null);
         }
         $library_counts = [];
-        foreach($request->items as $item){
-            $library_counts[$item['id']] = Library::where('api_id', $item['id'])
+        foreach($request->book_ids as $book_id){
+            $library_counts[$book_id] = Library::where('api_id', $book_id)
                 ?->count() ?? 0;
         }
 

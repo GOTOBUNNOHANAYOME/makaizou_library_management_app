@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\LoginCredential;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class LoginVerification
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check()){
+        if(!auth()->check()) {
             return to_route("login_credential.create");
         }
 

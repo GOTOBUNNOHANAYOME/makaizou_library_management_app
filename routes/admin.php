@@ -12,7 +12,7 @@ Route::get("/", [LoginCredentialController::class, "create"])->name("admin.login
 
 Route::post('/store', [LoginCredentialController::class, 'store'])->name('admin.login_credential.store');
 
-Route::middleware(['auth.user'])->group(function () {
+Route::middleware(['auth.admin'])->group(function () {
     Route::get('/report/access', [ReportController::class, 'accessReport'])->name('admin.report.access');
     Route::get('/report/user', [ReportController::class, 'userReport'])->name('admin.report.user');
 

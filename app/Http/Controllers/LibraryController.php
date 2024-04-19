@@ -7,21 +7,24 @@ use App\Models\{
     LibraryHistory,
     LibraryReview
 };
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class LibraryController extends Controller
 {
     public function index(Request $request)
     {
-        $libraries = Library::when(!is_null($request->query('search_word')), function ($query) use ($request) {
-            return $query->where('title', 'LIKE', $request->query('search_word'))
-                ->orWhere('description', 'LIKE', $request->query('search_word'))
-                ->orWhereIn('id', function ($sub_query) use ($request){
-                    return $sub_query->select('library_id')
-                        ->from('library_authors')
-                        ->where('name', 'LIKE', '%' . $request->query('library_info') . '%');
+        $libraries = Library::select('title', DB::raw('ANY_VALUE(id) as id'), DB::raw('ANY_VALUE(description) as description')) 
+            ->when(!is_null($request->query('search_word')), function ($query) use ($request) {
+                return $query->where('title', 'LIKE', $request->query('search_word'))
+                    ->orWhere('description', 'LIKE', $request->query('search_word'))
+                    ->orWhereIn('id', function ($sub_query) use ($request){
+                        return $sub_query->select('library_id')
+                            ->from('library_authors')
+                            ->where('name', 'LIKE', '%' . $request->query('library_info') . '%');
                 });
             })
+            ->groupBy('title')
             ->get();
 
         $library_histories = LibraryHistory::where('user_id', auth()->id())
