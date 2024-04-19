@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('api_id')->comment('GoogleAPIのID値');
             $table->string('isbn_10')->nullable()->comment('ISBN10コード');
             $table->string('isbn_13')->nullable()->comment('ISBN13コード');
-            $table->string('description')->nullable()->comment('概要');
+            $table->text('description')->nullable()->comment('概要');
             $table->integer('page')->nullable()->comment('ページ数');
             $table->string('thumbnail_path')->nullable()->comment('Googleが提供してる画像');
             $table->string('icon_path')->nullable()->comment('Googleが提供しているアイコン用の画像');

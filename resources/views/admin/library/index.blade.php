@@ -45,90 +45,82 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    googleApi = @json($google_api);
-    let library_counts = [];
+googleApi = @json($google_api);
+let library_counts = [];
 
-    $(document).ready(function() {
-            $('#search_button').on('click', function() {
-                searchWord = $('#search_word').val();
-                url = googleApi+searchWord;
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        $.ajax({
-                            url: @json($search_count_url),
-                            type: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            dataType: 'json',
-                            data:  response.items,
-                            success: function(data) {
-                                library_counts = $.merge(library_counts, data);
-                            }
-                        })
-                        tbody = $('#tbody');
-                        tbody.empty();
-                        response.items.forEach(function(book, index) {
-                            title = book.volumeInfo.title;
-                            authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown Author';
-
-                            var row = $('<tr>');
-                            row.append('<td>' + (index + 1) + '</td>');
-                            row.append('<td>' + title + '</td>');
-                            row.append('<td>' + authors + '</td>');
-                            if(Number(library_counts[book.id]) > 0){
-                                row.append('<td>' + library_counts[book.id] + '</td>');
-                            }else{
-                                row.append('<td>' + 0 + '</td>');
-                            }
-                            row.append('<td><button class="btn btn-primary library_add_button" data-book-id="' + book.id + '" name="' + book.id + '">追加</button></td>');
-
-                            tbody.append(row);
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
-            })
-        });
-
-    $(document).ready(function() {
-        $('#search_word').keypress(function(event) {
-            if (event.which === 13) {
-                $('#search_button').click();
-            }
-        }); 
-    });
-    $(document).ready(function() {
-        $(document).on('click', '.library_add_button', function(){
-            console.log('a');
-            requestData = {
-                book_id : $(this).data('book-id')
-            }
-
+$(document).ready(function() {
+    $('#search_button').on('click', function() {
+        searchWord = $('#search_word').val();
+        url = googleApi+searchWord;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'json'
+        }).done(function(response) {
+            library_counts = [];
             $.ajax({
-                url: @json($redirect_url),
+                url: @json($search_count_url),
                 type: 'POST',
-                data: requestData, // 送信するデータ
-                dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-            success: function(response) {
+                dataType: 'json',
+                data: {book_ids : response.items.map(item => item.id)}
+            }).done(function(data) {
+                library_counts.push(data);
+                tbody = $('#tbody');
+                tbody.empty();
+                response.items.forEach(function(book, index) {
+                    title = book.volumeInfo.title;
+                    authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown Author';
+                    let row = $('<tr>');
+                    row.append('<td>' + (index + 1) + '</td>');
+                    row.append('<td>' + title + '</td>');
+                    row.append('<td>' + authors + '</td>');
+                    if(Number(library_counts[0][book.id]) > 0){
+                        row.append('<td id='+ book.id +'>' + library_counts[0][book.id] + '</td>');
+                    }else{
+                        row.append('<td id='+ book.id +'>' + 0 + '</td>');
+                    }
+                    row.append('<td><button class="btn btn-primary library_add_button" data-book-id="' + book.id + '" name="' + book.id + '">追加</button></td>');
 
-            },
-            error: function(xhr, status, error) {
-
-            }
-            })
-        }); 
+                    tbody.append(row);
+                });
+            });
+        });
     });
+});
+
+$(document).ready(function() {
+    $('#search_word').keypress(function(event) {
+        if (event.which === 13) {
+            $('#search_button').click();
+        }
+    }); 
+});
+
+$(document).ready(function() {
+    $(document).on('click', '.library_add_button', function(){
+    let bookId = $(this).data('book-id');
+        requestData = {
+            book_id : bookId
+        }
+
+        $.ajax({
+            url: @json($redirect_url),
+            type: 'POST',
+            data: requestData,
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        }).done(function(data) {
+            $('#' + bookId).text(data[0]);
+        })
+    }); 
+});
 </script>
 @endsection

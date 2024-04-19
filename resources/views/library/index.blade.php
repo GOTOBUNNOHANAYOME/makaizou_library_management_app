@@ -13,15 +13,15 @@
     </form>
     <br>
     <a href="{{ route('library_history.index') }}">レンタル履歴一覧</a>
-    <a href="{{ route('user.index') }}">マイページ行きたいやで</a>
+    <a href="{{ route('user.index') }}">マイページ行きたいやで</a><br>
 
     @if(isset($libraries))
         @foreach ($libraries as $library)
             <a href="{{ route('library.show', $library) }}">{{ $library->title }}</a>
             @if(in_array($library->id, $library_histories))
-                <a href="{{ route('library_history.book_return', $library) }}">返却</a>
+                <a href="{{ route('library_history.book_return', $library) }}">返却</a><br>
             @else
-                <a href="{{ route('library_history.store', $library) }}">レンタル</a>
+                <a href="{{ route('library_history.store', $library) }}">レンタル</a><br>
             @endif
         @endforeach
     @endif
