@@ -16,7 +16,7 @@ class AdminVerification
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check() && Admin::where('login_id', auth()->user()->login_id)->exists()){
+        if(!auth()->check()){
             return to_route("admin.login_credential.create");
         }
         
