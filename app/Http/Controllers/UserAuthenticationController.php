@@ -41,10 +41,15 @@ class UserAuthenticationController extends Controller
             'expired_at'           => now()->addMinutes(15)
         ]);
 
-        if((int)$request->authentication_type === AuthenticationType::CREATE_USER){
-            Mail::to($request->email)->send(new CreateUserMail($authentication_token));
-        }else{
-            Mail::to($request->email)->send(new ResetPasswordMail($authentication_token));
+        switch($request->authentication_type){
+            case AuthenticationType::CREATE_USER:
+                Mail::to($request->email)->send(new CreateUserMail($authentication_token));
+                break;
+            case AuthenticationType::RESET_PASSWORD:
+                Mail::to($request->email)->send(new ResetPasswordMail($authentication_token));
+                break;
+            default:
+                return;
         }
 
         return to_route('login_credential.create');

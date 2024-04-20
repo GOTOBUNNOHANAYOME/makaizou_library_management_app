@@ -19,6 +19,6 @@ class LoginCredentialController extends Controller
         $admin = Admin::where('login_id', $request->login_id)->first();
         auth()->login($admin);
 
-        return to_route('admin.report.access');
+        return to_route('admin.library.create');
     }
 }

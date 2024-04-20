@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LibraryAuthor extends Model
+class MailSend extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'library_id',
-        'name'
+        'title',
+        'content'
     ];
-
-    public function library()
-    {
-        return $this->belongsTo(Library::class);
-    }
 }
