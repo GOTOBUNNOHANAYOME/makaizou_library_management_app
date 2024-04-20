@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LibraryAuthor extends Model
+class MailSendHistory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'library_id',
-        'name'
+        'mail_send_id',
+        'user_id',
     ];
 
-    public function library()
+    public function mailSend()
     {
-        return $this->belongsTo(Library::class);
+        return $this->belongsTo(MailSend::class);
     }
 }

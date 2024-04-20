@@ -22,4 +22,19 @@ class Library extends Model
         'publisher',
         'published_at'
     ];
+
+    public function libraryAuthors()
+    {
+        return $this->hasMany(LibraryAuthor::class);
+    }
+
+    public function libraryHistories()
+    {
+        return $this->hasMany(LibraryHistory::class);
+    }
+
+    public function libraryReviews()
+    {
+        return $this->hasMany(LibraryReview::class);
+    }
 }

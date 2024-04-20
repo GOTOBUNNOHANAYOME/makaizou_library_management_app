@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Http;
 
 class LibraryController extends Controller
 {
-    public function index(Request $request)
+    public function create(Request $request)
     {
-        return view('admin.library.index', [
-            'google_api' => config('services.google_book.url'),
-            'redirect_url' => route('admin.library.store'),
+        return view('admin.library.create', [
+            'google_api'       => config('services.google_book.url'),
+            'redirect_url'     => route('admin.library.store'),
             'search_count_url' => route('admin.library.calc_count')
         ]);
     }
