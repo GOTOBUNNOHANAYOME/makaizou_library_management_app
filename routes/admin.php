@@ -5,8 +5,8 @@ use App\Http\Controllers\Admin\{
     LoginCredentialController,
     ReportController,
     LibraryController,
+    MailSendController,
 };
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 Route::get("/", [LoginCredentialController::class, "create"])->name("admin.login_credential.create");
 
@@ -18,9 +18,18 @@ Route::middleware(['auth.admin'])->group(function () {
 
     Route::prefix('/library')->group(function () {
         Route::get('/index', [LibraryController::class, 'index'])->name('admin.library.index');
+        Route::get('/create', [LibraryController::class, 'create'])->name('admin.library.create');
+    });
+
+    Route::prefix('/mail_send')->group(function () {
+        Route::get('/create', [MailSendController::class, 'create'])->name('admin.mail_send.create');
+        Route::post('/store', [MailSendController::class, 'store'])->name('admin.mail_send.store');
+        Route::get('/complete', [MailSendController::class, 'complete'])->name('admin.mail_send.complete');
+        Route::get('/edit', [MailSendController::class, 'edit'])->name('admin.mail_send.edit');
+        Route::put('/update', [MailSendController::class, 'update'])->name('admin.mail_send.update');
     });
 });
 Route::prefix('/library')->group(function () {
-    Route::post('/calc-count', [LibraryController::class,'calcCount'])->name('admin.library.calc_count');
+    Route::post('/calc-count', [LibraryController::class, 'calcCount'])->name('admin.library.calc_count');
     Route::post('/store', [LibraryController::class, 'store'])->name('admin.library.store');
 });
