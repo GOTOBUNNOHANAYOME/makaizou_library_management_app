@@ -21,6 +21,14 @@
               </a>
             </li>
           </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.library.index') }}" class="nav-link {{ Request::routeIs('admin.library.index') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>書籍一覧</p>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item {{ Request::routeIs('admin.report.access') || Request::routeIs('admin.report.user') ? 'menu-open' : ''}}">
           <div class="nav-link">

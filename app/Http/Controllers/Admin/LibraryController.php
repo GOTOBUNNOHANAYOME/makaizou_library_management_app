@@ -13,6 +13,40 @@ use Illuminate\Support\Facades\Http;
 
 class LibraryController extends Controller
 {
+    const PAGENATE_SIZE = 10;
+
+    public function index(Request $request)
+    {
+        if(!is_null($request->query('sort'))) {
+            if(session()->get('sort_column') === $request->query('sort')) {
+                switch(session()->get('sort_direction')) {
+                    case 'desc':
+                        session()->put(['sort_direction' => 'asc']);
+                        break;
+                    case 'asc':
+                        session()->put(['sort_direction' => 'desc']);
+                        break;
+                }
+            }else{
+                session()->put(['sort_direction' => 'asc']);
+                session()->put(['sort_column' => $request->query('sort')]);
+            }
+        }else{
+            session()->put(['sort_column' => 'id']);
+            session()->put(['sort_direction' => 'asc']);
+        }
+
+        $libraries = Library::when(is_null(session()->get('sort_column')), function ($query) {
+                return $query->orderBy('id', 'asc');
+            }, function($query) {
+                return $query->orderBy(session()->get('sort_column'), session()->get('sort_direction'));
+            })
+            ->with(['libraryAuthors'])
+            ->paginate(self::PAGENATE_SIZE);
+        return view('admin.library.index', [
+            'libraries'        => $libraries,
+        ]);
+    }
     public function create(Request $request)
     {
         return view('admin.library.create', [

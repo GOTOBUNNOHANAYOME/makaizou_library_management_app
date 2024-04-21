@@ -28,6 +28,12 @@ class Library extends Model
         return $this->hasMany(LibraryAuthor::class);
     }
 
+    public function getAuthorsAttribute()
+    {
+        $authors = $this->libraryAuthors()->pluck('name')->toArray();
+        return implode(', ', $authors);
+    }
+
     public function libraryHistories()
     {
         return $this->hasMany(LibraryHistory::class);
