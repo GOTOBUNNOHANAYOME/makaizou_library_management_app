@@ -17,6 +17,7 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/report/user', [ReportController::class, 'userReport'])->name('admin.report.user');
 
     Route::prefix('/library')->group(function () {
+        Route::get('/index', [LibraryController::class, 'index'])->name('admin.library.index');
         Route::get('/create', [LibraryController::class, 'create'])->name('admin.library.create');
     });
 
