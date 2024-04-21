@@ -45,7 +45,7 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item {{ Request::routeIs('admin.mail_send.create') ? 'menu-open' : ''}}">
+        <li class="nav-item {{ Request::routeIs('admin.mail_send.create') || Request::routeIs('admin.mail_send.edit') ? 'menu-open' : ''}}">
           <div class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -58,6 +58,14 @@
               <a href="{{ route('admin.mail_send.create') }}" class="nav-link {{ Request::routeIs('admin.mail_send.create') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>メール送信</p>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.mail_send.edit') }}" class="nav-link {{ Request::routeIs('admin.mail_send.edit') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>設定</p>
               </a>
             </li>
           </ul>

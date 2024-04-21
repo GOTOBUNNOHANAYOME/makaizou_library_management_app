@@ -24,6 +24,8 @@ Route::middleware(['auth.admin'])->group(function () {
         Route::get('/create', [MailSendController::class, 'create'])->name('admin.mail_send.create');
         Route::post('/store', [MailSendController::class, 'store'])->name('admin.mail_send.store');
         Route::get('/complete', [MailSendController::class, 'complete'])->name('admin.mail_send.complete');
+        Route::get('/edit', [MailSendController::class, 'edit'])->name('admin.mail_send.edit');
+        Route::put('/update', [MailSendController::class, 'update'])->name('admin.mail_send.update');
     });
 });
 Route::prefix('/library')->group(function () {
