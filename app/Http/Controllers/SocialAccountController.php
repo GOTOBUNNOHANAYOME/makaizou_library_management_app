@@ -23,10 +23,11 @@ class SocialAccountController extends Controller
         try{
             $social_user = Socialite::with($type)->user();
             $user = User::create([
-                'name'            => $social_user->name,
-                'email'           => $social_user->email,
-                'icon_image_path' => $social_user->avatar,
-                'is_enable'       => true,
+                'name'               => $social_user->name,
+                'email'              => $social_user->email,
+                'icon_image_path'    => $social_user->avatar,
+                'archive_image_path' => $social_user->avatar,
+                'is_enable'          => true,
             ]);
             $user->socialAccounts()->create([
                 'user_id'       => $user->id,
