@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     LoginCredentialController,
     UserController,
     UserAuthenticationController,
+    SocialAccountController
 };
 
 Route::get('/', function () {
@@ -64,3 +65,9 @@ Route::middleware(['auth.user'])->group(function () {
         Route::post('/store', [LibraryReviewController::class, 'store'])->name('library_review.store');
     });
 });
+
+Route::prefix('social_account')->group(function () {
+    Route::get('auth/{type}/create', [SocialAccountController::class, 'create'])->name('social_account.create');
+    Route::get('auth/{type}/store', [SocialAccountController::class, 'store'])->name('social_account.store');
+});
+

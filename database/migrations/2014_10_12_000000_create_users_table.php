@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
-            $table->integer('prefecture');
-            $table->integer('gender');
-            $table->string('phone_number');
-            $table->date('birthday');
+            $table->string('password')->nullable();
+            $table->integer('prefecture')->nullable();
+            $table->integer('gender')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('archive_image_path');
             $table->string('icon_image_path');
             $table->boolean('is_enable');

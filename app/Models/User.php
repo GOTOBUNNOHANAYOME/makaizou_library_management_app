@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(LoginCredential::class);
     }
+
+    public function socialAccounts()
+    {
+        return $this->belongsTo(SocialAccount::class);
+    }
 }

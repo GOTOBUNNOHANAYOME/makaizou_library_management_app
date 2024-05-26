@@ -13,7 +13,21 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
-
+    'github' => [
+        'client_id'     => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect'      => env('GITHUB_REDIRECT_URL'),
+    ],
+    'google'=> [
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT_URL'),
+    ],
+    'twitter'=> [
+        'client_id'     => env('TWITTER_CLIENT_ID'),
+        'client_secret' => env('TWITTER_CLIENT_SECRET'),
+        'redirect'      => env('TWITTER_REDIRECT_URL'),
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
