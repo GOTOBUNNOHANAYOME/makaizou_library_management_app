@@ -5,13 +5,6 @@ git clone https://github.com/GOTOBUNNOHANAYOME/makaizou_library_management_app.g
 ```
 ```
 cd makaizou_library_management_app
-```
-var/www/html/makaizou_library_management_app下で
-```
-chmod -R 775 storage/logs
-chmod -R 777 storage
-```
-```
 cp .env.example .env
 npm install
 php artisan key:generate
@@ -20,22 +13,7 @@ php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
 ```
-```
-apt install nodejs npm
-```
-/var/www/html/makaizou_library_management_app/内で
-```
-composer require laravel/ui
-php artisan ui react
-npm install && nohup npm run dev &
-```
-別のターミナル開いて/var/www/html/makaizou_library_management_app/内で
-```
-npm install --save-dev ts-loader typescript react-router-dom @types/react @types/react-dom @types/react-router-dom
-```
-```
-npx tsc --init
-```
+
 <hr>
 ### よく使うGitコマンドの一覧
 
@@ -54,13 +32,3 @@ npx tsc --init
 |git stash list|退避させているスタッシュの一覧表示|
 |git stash apply 'スタッシュ名'|現在のブランチに退避させているスタッシュを追加<br>スタッシュ名はgit stash listで確認する。<br>例:git stash apply 'stash@{0}'|
 
-
-※1プルリクエストの作成
-ローカルブランチをプッシュ後、Githubのサイトでcompare & create pull resquestsからプルリクエストを作成する 
-
-<br>
-スプレッドシート
-https://docs.google.com/spreadsheets/d/1sA4U0zTgiKbjZSy7-kswvCKDYP2lLDE53fUA8OdRIOM/edit#gid=1748048429<br>
-要件定義参考サイト
-https://qiita.com/syantien/items/9a8a7cbaeca2be3ef0d7<br>
-Miro<br> https://miro.com/welcomeonboard/Z1piNzhSV0RhaEJLd3lHZFkwOUNKdHdHQzZDTHV6TGNUMHJaQjZsZG92cDlPTnN2MlU3RHJ2Q2NCWFJFbkx1U3wzNDU4NzY0NTU4MzQ2NzYxNDY2fDI=?share_link_id=110148994627
